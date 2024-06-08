@@ -36,7 +36,7 @@
 
 #include <cstdint>
 
-namespace caisslabs::stm32 {
+namespace caisselabs::stm32 {
 inline namespace l432 {
 
   constexpr std::uint32_t USART1_BASE = 0x4001'3800;

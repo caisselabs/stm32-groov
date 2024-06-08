@@ -13,7 +13,7 @@
 #include <cstdint>
 
 
-namespace caisslabs::stm32 {
+namespace caisselabs::stm32 {
 
   template <std::uint32_t BaseAddress>
   using rcc_cr =
