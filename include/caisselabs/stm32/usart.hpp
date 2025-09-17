@@ -8,6 +8,8 @@
 //
 #pragma once
 
+#include "caisselabs/stm32/access.hpp"
+
 #include <groov/config.hpp>
 
 #include <cstdint>
@@ -19,7 +21,7 @@ namespace caisselabs::stm32 {
   using usart_cr1 =
     groov::reg<
       "cr1", std::uint32_t,
-      BaseAddress+0x00, groov::w::replace,
+      BaseAddress+0x00, access::rw,
 
       groov::field<"M1"     , bool, 28, 28>,
       groov::field<"EOBIE"  , bool, 27, 27>,
@@ -51,12 +53,12 @@ namespace caisselabs::stm32 {
       groov::field<"UE"     , bool,  0,  0>
     >;
 
-  
+
   template <std::uint32_t BaseAddress>
   using usart_cr2 =
     groov::reg<
       "cr2", std::uint32_t,
-      BaseAddress+0x04, groov::w::replace,
+      BaseAddress+0x04, access::rw,
 
       groov::field<"ADD"      , std::uint8_t, 31, 24>,
       groov::field<"RTOEN"    , bool        , 23, 23>,
@@ -84,7 +86,7 @@ namespace caisselabs::stm32 {
   using usart_cr3 =
     groov::reg<
       "cr3", std::uint32_t,
-      BaseAddress+0x08, groov::w::replace,
+      BaseAddress+0x08, access::rw,
 
       groov::field<"TCBGTIE"     , bool, 24, 24>,
       groov::field<"UCESM"     , bool, 23, 23>,
@@ -113,7 +115,7 @@ namespace caisselabs::stm32 {
   using usart_brr =
     groov::reg<
       "brr", std::uint32_t,
-      BaseAddress+0x0c, groov::w::replace,
+      BaseAddress+0x0c, access::rw,
 
       groov::field<"BRR"     , std::uint32_t, 15, 0>  // uint16_t?
     >;
@@ -122,7 +124,7 @@ namespace caisselabs::stm32 {
   using usart_gtpr =
     groov::reg<
       "gtpr", std::uint32_t,
-      BaseAddress+0x10, groov::w::replace,
+      BaseAddress+0x10, access::rw,
 
       groov::field<"GT"     , std::uint8_t, 15, 8>,
       groov::field<"PSC"     , std::uint8_t, 7, 0>
@@ -132,7 +134,7 @@ namespace caisselabs::stm32 {
   using usart_rtor =
     groov::reg<
       "gtpr", std::uint32_t,
-      BaseAddress+0x14, groov::w::replace,
+      BaseAddress+0x14, access::rw,
 
       groov::field<"BLEN"     , std::uint8_t, 31, 24>,
       groov::field<"RTO"     , std::uint32_t, 23, 0>
@@ -142,7 +144,7 @@ namespace caisselabs::stm32 {
   using usart_rqr =
     groov::reg<
       "rqr", std::uint32_t,
-      BaseAddress+0x18, groov::w::replace,
+      BaseAddress+0x18, access::rw,
 
       groov::field<"TXFRQ"     , bool, 4, 4>,
       groov::field<"RXFRQ"     , bool, 3, 3>,
@@ -155,7 +157,7 @@ namespace caisselabs::stm32 {
   using usart_isr =
     groov::reg<
       "isr", std::uint32_t,
-      BaseAddress+0x1c, groov::w::replace,
+      BaseAddress+0x1c, access::rw,
 
       groov::field<"TCBGT"     , bool, 25, 25>,
       groov::field<"REACK"     , bool, 22, 22>,
@@ -186,7 +188,7 @@ namespace caisselabs::stm32 {
   using usart_icr =
     groov::reg<
       "icr", std::uint32_t,
-      BaseAddress+0x20, groov::w::replace,
+      BaseAddress+0x20, access::rw,
 
       groov::field<"WUCF"     , bool, 20, 20>,
       groov::field<"CMCF"     , bool, 17, 17>,
@@ -207,7 +209,7 @@ namespace caisselabs::stm32 {
   using usart_rdr =
     groov::reg<
       "rdr", std::uint32_t,
-      BaseAddress+0x24, groov::w::replace,
+      BaseAddress+0x24, access::rw,
 
       groov::field<"RDR"     , std::uint32_t, 8, 0>
     >;
@@ -216,9 +218,9 @@ namespace caisselabs::stm32 {
   using usart_tdr =
     groov::reg<
       "tdr", std::uint32_t,
-      BaseAddress+0x28, groov::w::replace,
+      BaseAddress+0x28, access::rw,
 
-      groov::field<"_reserved", std::uint32_t, 31, 9, groov::w::read_only>,
+      groov::field<"_reserved", std::uint32_t, 31, 9, access::ro>,
       groov::field<"TDR"      , std::uint32_t,  8, 0>
     >;
 }

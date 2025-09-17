@@ -2,7 +2,8 @@
 // Copyright (c) 2024 Michael Caisse
 //
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+// (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
 //
 // STM32 registers for the STM32L432 part family mapped to the part's addresses.
 //
@@ -11,9 +12,9 @@
 
 // the debug bus can help add break points for store/read operations
 //
-// Simply pass the object type to the mmio_bus of interest and then set break points
-// on free functions `debug_store` and `debug_read` which should not get inlined.
-// For example:
+// Simply pass the object type to the mmio_bus of interest and then set break
+// points on free functions `debug_store` and `debug_read` which should not get
+// inlined. For example:
 //
 //  template <stdx::ct_string Name, std::uint32_t BaseAddress>
 //  using usartx_t =
@@ -25,23 +26,23 @@
 //
 // #include "debug/debug_mmio_bus.hpp"
 
-#include <caisselabs/stm32/usart.hpp>
-#include <caisselabs/stm32/timer.hpp>
-#include <caisselabs/stm32/i2c.hpp>
 #include <caisselabs/stm32/gpio.hpp>
+#include <caisselabs/stm32/i2c.hpp>
 #include <caisselabs/stm32/rcc.hpp>
+#include <caisselabs/stm32/timer.hpp>
+#include <caisselabs/stm32/usart.hpp>
 
-#include <stdx/ct_string.hpp>
 #include <groov/mmio_bus.hpp>
+#include <stdx/ct_string.hpp>
 
 #include <cstdint>
 
 namespace caisselabs::stm32 {
 inline namespace l432 {
 
-  constexpr std::uint32_t USART1_BASE = 0x4001'3800;
-  constexpr std::uint32_t USART2_BASE = 0x4000'4400;
-
+constexpr std::uint32_t USART1_BASE = 0x4001'3800;
+constexpr std::uint32_t USART2_BASE = 0x4000'4400;
+// clang-format off
   // -------------------------------------------
   // USARTs
   template <stdx::ct_string Name, std::uint32_t BaseAddress>
@@ -103,7 +104,8 @@ inline namespace l432 {
       gpiox_pupdr<BaseAddress>,
       gpiox_odr<BaseAddress>,
       gpiox_afrl<BaseAddress>,
-      gpiox_afrh<BaseAddress>
+      gpiox_afrh<BaseAddress>,
+      gpiox_brr<BaseAddress>
     >;
 
   using gpioa_t = gpiox_t<"gpioa", GPIOA_BASE>;
@@ -121,6 +123,7 @@ inline namespace l432 {
       "rcc", groov::mmio_bus<>,
       rcc_cr<RCC_BASE>,
       rcc_cfgr<RCC_BASE>,
+      rcc_apb1rstr1<RCC_BASE>,
       rcc_apb2rstr<RCC_BASE>,
       rcc_ahb2enr<RCC_BASE>,
       rcc_apb1enr1<RCC_BASE>,
@@ -135,10 +138,10 @@ inline namespace l432 {
   constexpr std::uint32_t I2C1_BASE = 0x4000'5400;
   constexpr std::uint32_t I2C3_BASE = 0x4000'5c00;
 
-  template <std::uint32_t BaseAddress>
+  template <stdx::ct_string Name, std::uint32_t BaseAddress>
   using i2cx_t =
     groov::group<
-      "i2c1", groov::mmio_bus<>,
+      Name, groov::mmio_bus<>,
       i2c_cr1<BaseAddress>,
       i2c_cr2<BaseAddress>,
       i2c_oar1<BaseAddress>,
@@ -152,10 +155,10 @@ inline namespace l432 {
       i2c_txdr<BaseAddress>
     >;
 
-  using i2c1_t = i2cx_t<I2C1_BASE>;
+  using i2c1_t = i2cx_t<"i2c1", I2C1_BASE>;
   constexpr auto i2c1 = i2c1_t{};
 
-  using i2c3_t = i2cx_t<I2C3_BASE>;
+  using i2c3_t = i2cx_t<"i2c2", I2C3_BASE>;
   constexpr auto i2c3 = i2c3_t{};
 }}
 

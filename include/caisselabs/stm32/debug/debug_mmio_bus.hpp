@@ -37,16 +37,17 @@ inline std::uint32_t __attribute__ ((noinline)) debug_read(std::uintptr_t addr) 
 
 namespace caisselabs::stm32 {
   struct debug_mem_iface {
-    template <std::unsigned_integral T> static auto store(std::uintptr_t addr) {
+    template <std::unsigned_integral T>
+    static auto store(std::uintptr_t addr) -> void {
         return async::then([=](T value) -> void {
-	  debug_store(addr, value);
+            debug_store(addr, value);
         });
     }
 
     template <std::unsigned_integral T>
     static auto load(std::uintptr_t addr) -> async::sender auto {
         return async::just_result_of([=]() -> T {
-	  return debug_read(addr);
+            return debug_read(addr);
         });
     }
 
