@@ -68,7 +68,7 @@ namespace caisselabs::stm32 {
     };
   }
 
-  template <stdx::ct_string Name, typename FieldType, std::uint32_t Offset, std::uint32_t BaseAddress>
+  template <stdx::ct_string Name, typename FieldType, std::uintptr_t Offset, std::uintptr_t BaseAddress>
   using gpiox_two_bit =
     groov::reg<
       Name, std::uint32_t,
@@ -93,7 +93,7 @@ namespace caisselabs::stm32 {
     >;
 
 
-  template <stdx::ct_string Name, typename FieldType, std::uint32_t Offset, std::uint32_t BaseAddress>
+  template <stdx::ct_string Name, typename FieldType, std::uintptr_t Offset, std::uintptr_t BaseAddress>
   using gpiox_one_bit =
     groov::reg<
       Name, std::uint32_t,
@@ -119,26 +119,26 @@ namespace caisselabs::stm32 {
     >;
 
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using gpiox_moder = gpiox_two_bit<"moder", gpio::mode, 0x00, BaseAddress>;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using gpiox_otyper = gpiox_one_bit<"otyper", gpio::outtype, 0x04, BaseAddress>;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using gpiox_ospeedr = gpiox_two_bit<"ospeedr", gpio::speed, 0x08, BaseAddress>;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using gpiox_pupdr = gpiox_two_bit<"pupdr", gpio::pupd, 0x0c, BaseAddress>;
 
   // TODO: FIX read only
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using gpiox_idr = gpiox_one_bit<"idr", bool, 0x10, BaseAddress>;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using gpiox_odr = gpiox_one_bit<"odr", bool, 0x14, BaseAddress>;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using gpiox_afrl =
     groov::reg<
       "afrl", std::uint32_t,
@@ -154,7 +154,7 @@ namespace caisselabs::stm32 {
       groov::field<"0" , gpio::afsel,   3,   0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using gpiox_afrh =
     groov::reg<
       "afrh", std::uint32_t,
@@ -171,6 +171,6 @@ namespace caisselabs::stm32 {
     >;
 
   // TODO: write one, write only register
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using gpiox_brr = gpiox_one_bit<"brr", bit_reset, 0x28, BaseAddress>;
 }

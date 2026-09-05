@@ -16,8 +16,8 @@ project(
 include(cmake/get_cpm.cmake)
 cpmaddpackage("gh:intel/cicd-repo-infrastructure#main")
 
-add_versioned_package("gh:intel/cpp-std-extensions#c0b4c44")
-add_versioned_package("gh:intel/generic-register-operation-optimizer#e07f7de")
+add_versioned_package("gh:intel/cpp-std-extensions#138f5b3")
+add_versioned_package("gh:intel/generic-register-operation-optimizer#2e45cc2")
 
 add_library(stm32-groov INTERFACE)
 target_include_directories(stm32-groov INTERFACE include)

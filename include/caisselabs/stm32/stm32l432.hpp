@@ -16,7 +16,7 @@
 // points on free functions `debug_store` and `debug_read` which should not get
 // inlined. For example:
 //
-//  template <stdx::ct_string Name, std::uint32_t BaseAddress>
+//  template <stdx::ct_string Name, std::uintptr_t BaseAddress>
 //  using usartx_t =
 //    groov::group<
 //      Name, groov::mmio_bus<debug_mem_iface>,
@@ -40,12 +40,12 @@
 namespace caisselabs::stm32 {
 inline namespace l432 {
 
-constexpr std::uint32_t USART1_BASE = 0x4001'3800;
-constexpr std::uint32_t USART2_BASE = 0x4000'4400;
+constexpr std::uintptr_t USART1_BASE = 0x4001'3800;
+constexpr std::uintptr_t USART2_BASE = 0x4000'4400;
 // clang-format off
   // -------------------------------------------
   // USARTs
-  template <stdx::ct_string Name, std::uint32_t BaseAddress>
+  template <stdx::ct_string Name, std::uintptr_t BaseAddress>
   using usartx_t =
     groov::group<
       Name, groov::mmio_bus<>,
@@ -70,10 +70,10 @@ constexpr std::uint32_t USART2_BASE = 0x4000'4400;
 
   // -------------------------------------------
   // Timers
-  constexpr std::uint32_t TIM2_BASE = 0x4000'0000;
+  constexpr std::uintptr_t TIM2_BASE = 0x4000'0000;
 
   // TIM2
-  template <stdx::ct_string Name, std::uint32_t BaseAddress>
+  template <stdx::ct_string Name, std::uintptr_t BaseAddress>
   using timx_t =
     groov::group<
       Name, groov::mmio_bus<>,
@@ -91,10 +91,10 @@ constexpr std::uint32_t USART2_BASE = 0x4000'4400;
 
   // -------------------------------------------
   // GPIO Port Things
-  constexpr std::uint32_t GPIOA_BASE = 0x4800'0000;
-  constexpr std::uint32_t GPIOB_BASE = 0x4800'0400;
+  constexpr std::uintptr_t GPIOA_BASE = 0x4800'0000;
+  constexpr std::uintptr_t GPIOB_BASE = 0x4800'0400;
 
-  template <stdx::ct_string Name, std::uint32_t BaseAddress>
+  template <stdx::ct_string Name, std::uintptr_t BaseAddress>
   using gpiox_t =
     groov::group<
       Name, groov::mmio_bus<>,
@@ -116,7 +116,7 @@ constexpr std::uint32_t USART2_BASE = 0x4000'4400;
 
   // -------------------------------------------
   // RCC
-  constexpr std::uint32_t RCC_BASE = 0x4002'1000;
+  constexpr std::uintptr_t RCC_BASE = 0x4002'1000;
 
   using rcc_t =
     groov::group<
@@ -135,10 +135,10 @@ constexpr std::uint32_t USART2_BASE = 0x4000'4400;
 
   // -------------------------------------------
   // I2C
-  constexpr std::uint32_t I2C1_BASE = 0x4000'5400;
-  constexpr std::uint32_t I2C3_BASE = 0x4000'5c00;
+  constexpr std::uintptr_t I2C1_BASE = 0x4000'5400;
+  constexpr std::uintptr_t I2C3_BASE = 0x4000'5c00;
 
-  template <stdx::ct_string Name, std::uint32_t BaseAddress>
+  template <stdx::ct_string Name, std::uintptr_t BaseAddress>
   using i2cx_t =
     groov::group<
       Name, groov::mmio_bus<>,

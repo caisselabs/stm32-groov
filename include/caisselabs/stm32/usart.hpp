@@ -17,7 +17,7 @@
 
 namespace caisselabs::stm32 {
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using usart_cr1 =
     groov::reg<
       "cr1", std::uint32_t,
@@ -54,7 +54,7 @@ namespace caisselabs::stm32 {
     >;
 
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using usart_cr2 =
     groov::reg<
       "cr2", std::uint32_t,
@@ -82,7 +82,7 @@ namespace caisselabs::stm32 {
     >;
 
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using usart_cr3 =
     groov::reg<
       "cr3", std::uint32_t,
@@ -111,7 +111,7 @@ namespace caisselabs::stm32 {
       groov::field<"EIE"     , bool, 0, 0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using usart_brr =
     groov::reg<
       "brr", std::uint32_t,
@@ -120,7 +120,7 @@ namespace caisselabs::stm32 {
       groov::field<"BRR"     , std::uint32_t, 15, 0>  // uint16_t?
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using usart_gtpr =
     groov::reg<
       "gtpr", std::uint32_t,
@@ -130,7 +130,7 @@ namespace caisselabs::stm32 {
       groov::field<"PSC"     , std::uint8_t, 7, 0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using usart_rtor =
     groov::reg<
       "gtpr", std::uint32_t,
@@ -140,7 +140,7 @@ namespace caisselabs::stm32 {
       groov::field<"RTO"     , std::uint32_t, 23, 0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using usart_rqr =
     groov::reg<
       "rqr", std::uint32_t,
@@ -153,7 +153,7 @@ namespace caisselabs::stm32 {
       groov::field<"ABRRQ"     , bool, 0, 0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using usart_isr =
     groov::reg<
       "isr", std::uint32_t,
@@ -184,7 +184,7 @@ namespace caisselabs::stm32 {
       groov::field<"PE"     , bool, 0, 0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using usart_icr =
     groov::reg<
       "icr", std::uint32_t,
@@ -205,7 +205,7 @@ namespace caisselabs::stm32 {
       groov::field<"PECF"     , bool, 0, 0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using usart_rdr =
     groov::reg<
       "rdr", std::uint32_t,
@@ -214,7 +214,7 @@ namespace caisselabs::stm32 {
       groov::field<"RDR"     , std::uint32_t, 8, 0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using usart_tdr =
     groov::reg<
       "tdr", std::uint32_t,
