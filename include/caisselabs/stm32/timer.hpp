@@ -16,7 +16,7 @@ namespace caisselabs::stm32 {
   // ----------------------------------------------------------------
   // register descriptions for TIM2/TIM3 on STM32L41,42,43,44,45,46
   // 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using timx_cr1 =
     groov::reg<
       "cr1", std::uint32_t,
@@ -33,7 +33,7 @@ namespace caisselabs::stm32 {
       groov::field<"CEN"     , bool, 0, 0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using timx_dier =
     groov::reg<
       "dier", std::uint32_t,
@@ -53,7 +53,7 @@ namespace caisselabs::stm32 {
       groov::field<"UIE"  , bool,  0,  0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using timx_sr =
     groov::reg<
       "sr", std::uint32_t,
@@ -90,7 +90,7 @@ namespace caisselabs::stm32 {
     input_ic_trc = 0b11
   };
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using timx_ccmr1_out =
     groov::reg<
       "ccmr1_out", std::uint32_t,
@@ -111,7 +111,7 @@ namespace caisselabs::stm32 {
     >;
 
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using timx_ccer =
     groov::reg<
       "ccer", std::uint32_t,
@@ -131,7 +131,7 @@ namespace caisselabs::stm32 {
       groov::field<"CC1E" , bool,  0,  0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using timx_cnt_16 =
     groov::reg<
       "cnt", std::uint32_t,
@@ -140,7 +140,7 @@ namespace caisselabs::stm32 {
       groov::field<"CNT", std::uint32_t, 15, 0> // TODO: uint16_t?
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using timx_cnt_32 = groov::reg<
     "cnt", std::uint32_t,
     BaseAddress+0x24, groov::w::replace,
@@ -148,7 +148,7 @@ namespace caisselabs::stm32 {
     groov::field<"CNT", std::uint32_t, 31, 0>
   >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using timx_ccr1_16 = groov::reg<
     "ccr1", std::uint32_t,
     BaseAddress+0x34, groov::w::replace,
@@ -156,7 +156,7 @@ namespace caisselabs::stm32 {
     groov::field<"CCR1", std::uint32_t, 15, 0>
   >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using timx_ccr1_32 = groov::reg<
     "ccr1", std::uint32_t,
     BaseAddress+0x34, groov::w::replace,

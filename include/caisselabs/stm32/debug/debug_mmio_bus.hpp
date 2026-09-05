@@ -12,7 +12,7 @@
 // on free functions `debug_store` and `debug_read` which should not get inlined.
 // For example:
 //
-//  template <stdx::ct_string Name, std::uint32_t BaseAddress>
+//  template <stdx::ct_string Name, std::uintptr_t BaseAddress>
 //  using usartx_t =
 //    groov::group<
 //      Name, groov::mmio_bus<debug_mem_iface>,

@@ -20,7 +20,7 @@ namespace caisselabs::stm32 {
 
   using std::uint8_t;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using i2c_cr1 =
     groov::reg<
       "cr1", std::uint32_t,
@@ -58,7 +58,7 @@ namespace caisselabs::stm32 {
     };
   }
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using i2c_cr2 =
     groov::reg<
       "cr2", std::uint32_t,
@@ -79,7 +79,7 @@ namespace caisselabs::stm32 {
       groov::field<"SADD7", std::uint8_t, 7, 1>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using i2c_oar1 =
     groov::reg<
       "oar1", std::uint32_t,
@@ -90,7 +90,7 @@ namespace caisselabs::stm32 {
       groov::field<"OA1", std::uint32_t, 9, 0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using i2c_oar2 =
     groov::reg<
       "oar2", std::uint32_t,
@@ -101,7 +101,7 @@ namespace caisselabs::stm32 {
       groov::field<"OA2", std::uint8_t, 7, 1>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using i2c_timingr =
     groov::reg<
       "timingr", std::uint32_t,
@@ -114,7 +114,7 @@ namespace caisselabs::stm32 {
       groov::field<"SCLL", std::uint8_t, 7, 0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using i2c_timeoutr =
     groov::reg<
       "timeoutr", std::uint32_t,
@@ -127,7 +127,7 @@ namespace caisselabs::stm32 {
       groov::field<"TIMEOUTA", std::uint32_t, 11, 0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using i2c_isr =
     groov::reg<
       "isr", std::uint32_t,
@@ -152,7 +152,7 @@ namespace caisselabs::stm32 {
       groov::field<"TXE", bool, 0, 0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using i2c_icr =
     groov::reg<
       "icr", std::uint32_t,
@@ -169,7 +169,7 @@ namespace caisselabs::stm32 {
       groov::field<"ADDRCF", bool, 3, 3>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using i2c_pecr =
     groov::reg<
       "pecr", std::uint32_t,
@@ -178,7 +178,7 @@ namespace caisselabs::stm32 {
       groov::field<"PEC", std::uint8_t, 7, 0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using i2c_rxdr =
     groov::reg<
       "rxdr", std::uint32_t,
@@ -187,7 +187,7 @@ namespace caisselabs::stm32 {
       groov::field<"RXDATA", std::uint8_t, 7, 0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using i2c_txdr =
     groov::reg<
       "txdr", std::uint32_t,

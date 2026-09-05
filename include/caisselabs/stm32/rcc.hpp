@@ -45,7 +45,7 @@ namespace caisselabs::stm32 {
     };
   }
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using rcc_cr =
     groov::reg<
       "cr", std::uint32_t,
@@ -131,7 +131,7 @@ namespace caisselabs::stm32 {
     };
   }
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using rcc_cfgr =
     groov::reg<
       "cfgr", std::uint32_t,
@@ -152,7 +152,7 @@ namespace caisselabs::stm32 {
 
 
   // TODO: mjc - These are really set-only bits. Write only. RMW is not meaningful
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using rcc_apb1rstr1 =
     groov::reg<
       "apb1rstr1", std::uint32_t,
@@ -187,7 +187,7 @@ namespace caisselabs::stm32 {
     >;
 
   // TODO: mjc - These are really set-only bits. Write only. RMW is not meaningful
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using rcc_apb2rstr =
     groov::reg<
       "apb2rstr", std::uint32_t,
@@ -210,7 +210,7 @@ namespace caisselabs::stm32 {
       groov::field<"SYSCFGRST" , bit_reset,  0,  0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using rcc_ahb2enr =
     groov::reg<
       "ahb2enr", std::uint32_t,
@@ -233,7 +233,7 @@ namespace caisselabs::stm32 {
     >;
 
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using rcc_apb1enr1 =
     groov::reg<
       "apb1enr1", std::uint32_t,
@@ -269,7 +269,7 @@ namespace caisselabs::stm32 {
       groov::field<"TIM2EN"   , bit_enable  ,  0,  0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using rcc_apb2enr =
     groov::reg<
       "apb2enr", std::uint32_t,
@@ -294,7 +294,7 @@ namespace caisselabs::stm32 {
       groov::field<"SYSCFGEN"  , bit_enable,  0,  0>
     >;
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using rcc_apb2smenr =
     groov::reg<
       "apb2smenr", std::uint32_t,
@@ -362,7 +362,7 @@ namespace caisselabs::stm32 {
     };
   }
 
-  template <std::uint32_t BaseAddress>
+  template <std::uintptr_t BaseAddress>
   using rcc_ccipr =
     groov::reg<
       "ccipr", std::uint32_t,
