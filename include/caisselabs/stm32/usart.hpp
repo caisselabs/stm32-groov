@@ -133,11 +133,11 @@ namespace caisselabs::stm32 {
   template <std::uintptr_t BaseAddress>
   using usart_rtor =
     groov::reg<
-      "gtpr", std::uint32_t,
+      "rtor", std::uint32_t,
       BaseAddress+0x14, access::rw,
 
-      groov::field<"BLEN"     , std::uint8_t, 31, 24>,
-      groov::field<"RTO"     , std::uint32_t, 23, 0>
+      groov::field<"BLEN"   , std::uint8_t, 31, 24>,
+      groov::field<"RTO"    , std::uint32_t, 23, 0>
     >;
 
   template <std::uintptr_t BaseAddress>
