@@ -77,9 +77,12 @@ namespace caisselabs::stm32 {
     one       = true
   };
 
-  template <typename T>
-  auto is_locked(T v) -> bool {
-    return v == T::LOCKED;
+  inline auto is_locked(bit_locked v) -> bool {
+    return v == bit_locked::LOCKED;
+  }
+
+  inline auto is_locked(bit_locked_bar v) -> bool {
+    return v == bit_locked_bar::LOCKED;
   }
 
   enum class bit_reset : bool {
