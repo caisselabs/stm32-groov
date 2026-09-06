@@ -2,7 +2,8 @@
 // Copyright (c) 2024 Michael Caisse
 //
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+// (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
 //
 // STM32 register descriptions for the USART device.
 //
@@ -14,7 +15,7 @@
 
 #include <cstdint>
 
-
+// clang-format off
 namespace caisselabs::stm32 {
 
   template <std::uintptr_t BaseAddress>
@@ -88,27 +89,27 @@ namespace caisselabs::stm32 {
       "cr3", std::uint32_t,
       BaseAddress+0x08, access::rw,
 
-      groov::field<"TCBGTIE"     , bool, 24, 24>,
-      groov::field<"UCESM"     , bool, 23, 23>,
-      groov::field<"WUFIE"     , bool, 22, 22>,
-      groov::field<"WUS"     , std::uint8_t, 21, 20>,
-      groov::field<"SCRARCNT"     , std::uint8_t, 19, 17>,
-      groov::field<"DEP"     , bool, 15, 15>,
-      groov::field<"DEM"     , bool, 14, 14>,
+      groov::field<"TCBGTIE"  , bool, 24, 24>,
+      groov::field<"UCESM"    , bool, 23, 23>,
+      groov::field<"WUFIE"    , bool, 22, 22>,
+      groov::field<"WUS"      , std::uint8_t, 21, 20>,
+      groov::field<"SCRARCNT" , std::uint8_t, 19, 17>,
+      groov::field<"DEP"      , bool, 15, 15>,
+      groov::field<"DEM"      , bool, 14, 14>,
       groov::field<"DDRE"     , bool, 13, 13>,
-      groov::field<"OVRDIS"     , bool, 12, 12>,
-      groov::field<"ONEBIT"     , bool, 11, 11>,
-      groov::field<"CTSIE"     , bool, 10, 10>,
+      groov::field<"OVRDIS"   , bool, 12, 12>,
+      groov::field<"ONEBIT"   , bool, 11, 11>,
+      groov::field<"CTSIE"    , bool, 10, 10>,
       groov::field<"CTSE"     , bool, 9, 9>,
       groov::field<"RTSE"     , bool, 8, 8>,
       groov::field<"DMAT"     , bool, 7, 7>,
       groov::field<"DMAR"     , bool, 6, 6>,
       groov::field<"SCEN"     , bool, 5, 5>,
       groov::field<"NACK"     , bool, 4, 4>,
-      groov::field<"HDSEL"     , bool, 3, 3>,
+      groov::field<"HDSEL"    , bool, 3, 3>,
       groov::field<"IRLP"     , bool, 2, 2>,
       groov::field<"IREN"     , bool, 1, 1>,
-      groov::field<"EIE"     , bool, 0, 0>
+      groov::field<"EIE"      , bool, 0, 0>
     >;
 
   template <std::uintptr_t BaseAddress>
@@ -127,17 +128,17 @@ namespace caisselabs::stm32 {
       BaseAddress+0x10, access::rw,
 
       groov::field<"GT"     , std::uint8_t, 15, 8>,
-      groov::field<"PSC"     , std::uint8_t, 7, 0>
+      groov::field<"PSC"    , std::uint8_t, 7, 0>
     >;
 
   template <std::uintptr_t BaseAddress>
   using usart_rtor =
     groov::reg<
-      "gtpr", std::uint32_t,
+      "rtor", std::uint32_t,
       BaseAddress+0x14, access::rw,
 
-      groov::field<"BLEN"     , std::uint8_t, 31, 24>,
-      groov::field<"RTO"     , std::uint32_t, 23, 0>
+      groov::field<"BLEN"   , std::uint8_t, 31, 24>,
+      groov::field<"RTO"    , std::uint32_t, 23, 0>
     >;
 
   template <std::uintptr_t BaseAddress>
@@ -146,11 +147,11 @@ namespace caisselabs::stm32 {
       "rqr", std::uint32_t,
       BaseAddress+0x18, access::rw,
 
-      groov::field<"TXFRQ"     , bool, 4, 4>,
-      groov::field<"RXFRQ"     , bool, 3, 3>,
-      groov::field<"MMRQ"     , bool, 2, 2>,
-      groov::field<"SBKRQ"     , bool, 1, 1>,
-      groov::field<"ABRRQ"     , bool, 0, 0>
+      groov::field<"TXFRQ"  , bool, 4, 4>,
+      groov::field<"RXFRQ"  , bool, 3, 3>,
+      groov::field<"MMRQ"   , bool, 2, 2>,
+      groov::field<"SBKRQ"  , bool, 1, 1>,
+      groov::field<"ABRRQ"  , bool, 0, 0>
     >;
 
   template <std::uintptr_t BaseAddress>
@@ -159,26 +160,26 @@ namespace caisselabs::stm32 {
       "isr", std::uint32_t,
       BaseAddress+0x1c, access::rw,
 
-      groov::field<"TCBGT"     , bool, 25, 25>,
-      groov::field<"REACK"     , bool, 22, 22>,
-      groov::field<"TEACK"     , bool, 21, 21>,
-      groov::field<"WUF"     , bool, 20, 20>,
-      groov::field<"RWU"     , bool, 19, 19>,
-      groov::field<"SBKF"     , bool, 18, 18>,
-      groov::field<"CMF"     , bool, 17, 17>,
-      groov::field<"BUSY"     , bool, 16, 16>,
-      groov::field<"ABRF"     , bool, 15, 15>,
-      groov::field<"ABRE"     , bool, 14, 14>,
-      groov::field<"EOBF"     , bool, 12, 12>,
-      groov::field<"RTOF"     , bool, 11, 11>,
-      groov::field<"CTS"     , bool, 10, 10>,
-      groov::field<"CTSIF"     , bool, 9, 9>,
-      groov::field<"LBDF"     , bool, 8, 8>,
-      groov::field<"TXE"     , bool, 7, 7>,
+      groov::field<"TCBGT"  , bool, 25, 25>,
+      groov::field<"REACK"  , bool, 22, 22>,
+      groov::field<"TEACK"  , bool, 21, 21>,
+      groov::field<"WUF"    , bool, 20, 20>,
+      groov::field<"RWU"    , bool, 19, 19>,
+      groov::field<"SBKF"   , bool, 18, 18>,
+      groov::field<"CMF"    , bool, 17, 17>,
+      groov::field<"BUSY"   , bool, 16, 16>,
+      groov::field<"ABRF"   , bool, 15, 15>,
+      groov::field<"ABRE"   , bool, 14, 14>,
+      groov::field<"EOBF"   , bool, 12, 12>,
+      groov::field<"RTOF"   , bool, 11, 11>,
+      groov::field<"CTS"    , bool, 10, 10>,
+      groov::field<"CTSIF"  , bool, 9, 9>,
+      groov::field<"LBDF"   , bool, 8, 8>,
+      groov::field<"TXE"    , bool, 7, 7>,
       groov::field<"TC"     , bool, 6, 6>,
-      groov::field<"RXNE"     , bool, 5, 5>,
-      groov::field<"IDLE"     , bool, 4, 4>,
-      groov::field<"ORE"     , bool, 3, 3>,
+      groov::field<"RXNE"   , bool, 5, 5>,
+      groov::field<"IDLE"   , bool, 4, 4>,
+      groov::field<"ORE"    , bool, 3, 3>,
       groov::field<"NF"     , bool, 2, 2>,
       groov::field<"FE"     , bool, 1, 1>,
       groov::field<"PE"     , bool, 0, 0>
@@ -190,19 +191,19 @@ namespace caisselabs::stm32 {
       "icr", std::uint32_t,
       BaseAddress+0x20, access::rw,
 
-      groov::field<"WUCF"     , bool, 20, 20>,
-      groov::field<"CMCF"     , bool, 17, 17>,
-      groov::field<"EOBCF"     , bool, 12, 12>,
-      groov::field<"RTOCF"     , bool, 11, 11>,
-      groov::field<"CTSCF"     , bool, 9, 9>,
-      groov::field<"LBDCF"     , bool, 8, 8>,
-      groov::field<"TCBGTCF"     , bool, 7, 7>,
-      groov::field<"TCCF"     , bool, 6, 6>,
-      groov::field<"IDLECF"     , bool, 4, 4>,
-      groov::field<"ORECF"     , bool, 3, 3>,
+      groov::field<"WUCF"    , bool, 20, 20>,
+      groov::field<"CMCF"    , bool, 17, 17>,
+      groov::field<"EOBCF"   , bool, 12, 12>,
+      groov::field<"RTOCF"   , bool, 11, 11>,
+      groov::field<"CTSCF"   , bool, 9, 9>,
+      groov::field<"LBDCF"   , bool, 8, 8>,
+      groov::field<"TCBGTCF" , bool, 7, 7>,
+      groov::field<"TCCF"    , bool, 6, 6>,
+      groov::field<"IDLECF"  , bool, 4, 4>,
+      groov::field<"ORECF"   , bool, 3, 3>,
       groov::field<"NCF"     , bool, 2, 2>,
-      groov::field<"FECF"     , bool, 1, 1>,
-      groov::field<"PECF"     , bool, 0, 0>
+      groov::field<"FECF"    , bool, 1, 1>,
+      groov::field<"PECF"    , bool, 0, 0>
     >;
 
   template <std::uintptr_t BaseAddress>
@@ -224,4 +225,4 @@ namespace caisselabs::stm32 {
       groov::field<"TDR"      , std::uint32_t,  8, 0>
     >;
 }
-
+// clang-format on
