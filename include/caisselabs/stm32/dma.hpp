@@ -59,9 +59,10 @@ namespace caisselabs::stm32 {
     };
 
     // Channel register blocks are at 0x08 + 0x14 * (x - 1), x = 1 to 7.
-    constexpr auto channel_base(std::uint32_t channel) -> std::uintptr_t {
-      static_assert(x >= 1 && x <= 7, "invalid dma channel base");
-      return 0x08 + 0x14 * (channel - 1);
+    template <std::uint32_t Channel>
+    constexpr auto channel_base() -> std::uintptr_t {
+      static_assert(Channel >= 1 && Channel <= 7, "invalid dma channel base");
+      return 0x08 + 0x14 * (Channel - 1);
     }
   }
 
@@ -158,7 +159,7 @@ namespace caisselabs::stm32 {
   using dma_ccr =
     groov::reg<
       Name, std::uint32_t,
-      BaseAddress+dma::channel_base(Channel)+0x00, access::rw,
+      BaseAddress+dma::channel_base<Channel>()+0x00, access::rw,
 
       groov::field<"reserved0", uint32_t       , 31, 15, access::ro>,
       groov::field<"MEM2MEM"  , bit_enable     , 14, 14>,
@@ -179,7 +180,7 @@ namespace caisselabs::stm32 {
   using dma_cndtr =
     groov::reg<
       Name, std::uint32_t,
-      BaseAddress+dma::channel_base(Channel)+0x04, access::rw,
+      BaseAddress+dma::channel_base<Channel>()+0x04, access::rw,
 
       groov::field<"reserved0", uint32_t, 31, 16, access::ro>,
       groov::field<"NDT", std::uint32_t, 15, 0>
@@ -189,7 +190,7 @@ namespace caisselabs::stm32 {
   using dma_cpar =
     groov::reg<
       Name, std::uint32_t,
-      BaseAddress+dma::channel_base(Channel)+0x08, access::rw,
+      BaseAddress+dma::channel_base<Channel>()+0x08, access::rw,
 
       groov::field<"PA", std::uint32_t, 31, 0>
     >;
@@ -198,7 +199,7 @@ namespace caisselabs::stm32 {
   using dma_cmar =
     groov::reg<
       Name, std::uint32_t,
-      BaseAddress+dma::channel_base(Channel)+0x0c, access::rw,
+      BaseAddress+dma::channel_base<Channel>()+0x0c, access::rw,
 
       groov::field<"MA", std::uint32_t, 31, 0>
     >;
