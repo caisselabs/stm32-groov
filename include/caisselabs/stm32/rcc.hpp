@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024, 2025 Michael Caisse
+// Copyright (c) 2024, 2025, 2026 Michael Caisse
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -151,6 +151,73 @@ namespace caisselabs::stm32 {
     >;
 
 
+  namespace rccx {
+    // PLLCFGR PLLR and PLLQ share an encoding. Both feed domains capped at
+    // 80 MHz, so the software has to pick a divider that keeps them there.
+    enum class plldiv : std::uint8_t {
+      div2 = 0b00,
+      div4 = 0b01,
+      div6 = 0b10,
+      div8 = 0b11
+    };
+
+    // PLLCFGR PLLM divides the source before the VCO. The result must land
+    // between 4 and 16 MHz.
+    enum class pllm : std::uint8_t {
+      div1 = 0b000,
+      div2 = 0b001,
+      div3 = 0b010,
+      div4 = 0b011,
+      div5 = 0b100,
+      div6 = 0b101,
+      div7 = 0b110,
+      div8 = 0b111
+    };
+
+    // PLLCFGR PLLP, used only when PLLPDIV is zero.
+    enum class pllp : bool {
+      div7  = false,
+      div17 = true
+    };
+
+    enum class pllsrc : std::uint8_t {
+      no_clock = 0b00,
+      MSI      = 0b01,
+      HSI16    = 0b10,
+      HSE      = 0b11
+    };
+  }
+
+  // f(VCO)   = f(PLL input) * PLLN / PLLM   -- must be 64 to 344 MHz
+  // f(PLL_R) = f(VCO) / PLLR                -- the system clock, max 80 MHz
+  //
+  // PLLM, PLLN, PLLP, PLLQ, PLLR and PLLSRC are writable only while the
+  // PLL is disabled; PLLREN cannot be cleared while PLLCLK is the system
+  // clock. For 80 MHz from HSI16: PLLM = div2, PLLN = 20, PLLR = div2.
+  template <std::uintptr_t BaseAddress>
+  using rcc_pllcfgr =
+    groov::reg<
+      "pllcfgr", std::uint32_t,
+      BaseAddress+0x0c, access::rw,
+
+      groov::field<"PLLPDIV"  , uint8_t       , 31, 27>,
+      groov::field<"PLLR"     , rccx::plldiv  , 26, 25>,
+      groov::field<"PLLREN"   , bit_enable    , 24, 24>,
+      groov::field<"reserved0", bool          , 23, 23, access::ro>,
+      groov::field<"PLLQ"     , rccx::plldiv  , 22, 21>,
+      groov::field<"PLLQEN"   , bit_enable    , 20, 20>,
+      groov::field<"reserved1", uint8_t       , 19, 18, access::ro>,
+      groov::field<"PLLP"     , rccx::pllp    , 17, 17>,
+      groov::field<"PLLPEN"   , bit_enable    , 16, 16>,
+      groov::field<"reserved2", bool          , 15, 15, access::ro>,
+      groov::field<"PLLN"     , uint8_t       , 14,  8>,
+      groov::field<"reserved3", bool          ,  7,  7, access::ro>,
+      groov::field<"PLLM"     , rccx::pllm    ,  6,  4>,
+      groov::field<"reserved4", uint8_t       ,  3,  2, access::ro>,
+      groov::field<"PLLSRC"   , rccx::pllsrc  ,  1,  0>
+    >;
+
+
   // TODO: mjc - These are really set-only bits. Write only. RMW is not meaningful
   template <std::uintptr_t BaseAddress>
   using rcc_apb1rstr1 =
@@ -208,6 +275,23 @@ namespace caisselabs::stm32 {
       groov::field<"SDMMC1RST" , bit_reset, 10, 10>,
       groov::field<"reserved5" , uint32_t ,  9,  1, access::ro>,
       groov::field<"SYSCFGRST" , bit_reset,  0,  0>
+    >;
+
+  template <std::uintptr_t BaseAddress>
+  using rcc_ahb1enr =
+    groov::reg<
+      "ahb1enr", std::uint32_t,
+      BaseAddress+0x48, access::rw,
+
+      groov::field<"reserved0", uint32_t  , 31, 17, access::ro>,
+      groov::field<"TSCEN"    , bit_enable, 16, 16>,
+      groov::field<"reserved1", uint8_t   , 15, 13, access::ro>,
+      groov::field<"CRCEN"    , bit_enable, 12, 12>,
+      groov::field<"reserved2", uint8_t   , 11,  9, access::ro>,
+      groov::field<"FLASHEN"  , bit_enable,  8,  8>,
+      groov::field<"reserved3", uint8_t   ,  7,  2, access::ro>,
+      groov::field<"DMA2EN"   , bit_enable,  1,  1>,
+      groov::field<"DMA1EN"   , bit_enable,  0,  0>
     >;
 
   template <std::uintptr_t BaseAddress>
