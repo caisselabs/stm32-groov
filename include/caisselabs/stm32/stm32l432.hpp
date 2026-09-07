@@ -34,6 +34,7 @@
 #include <caisselabs/stm32/spi.hpp>
 #include <caisselabs/stm32/timer.hpp>
 #include <caisselabs/stm32/usart.hpp>
+#include <caisselabs/stm32/whole_register_bus.hpp>
 
 #include <groov/mmio_bus.hpp>
 #include <stdx/ct_string.hpp>
@@ -49,9 +50,13 @@ constexpr std::uintptr_t USART2_BASE = 0x4000'4400;
   // -------------------------------------------
   // USARTs
   template <stdx::ct_string Name, std::uintptr_t BaseAddress>
+  // whole_register_bus: RM0394 39.8 -- "The peripheral registers have to be
+  // accessed by words (32 bits)". Same requirement as the DMA, and the same
+  // reason: groov's default bus narrows a write to the smallest type that
+  // covers the bits being written.
   using usartx_t =
     groov::group<
-      Name, groov::mmio_bus<>,
+      Name, whole_register_bus<>,
       usart_cr1<BaseAddress>,
       usart_cr2<BaseAddress>,
       usart_cr3<BaseAddress>,
@@ -78,9 +83,16 @@ constexpr std::uintptr_t USART2_BASE = 0x4000'4400;
 
   // TIM2 -- general purpose, 32-bit counter and auto-reload
   template <stdx::ct_string Name, std::uintptr_t BaseAddress>
+  // whole_register_bus, and OVER-CONSTRAINED on purpose. RM0394 27.4 permits
+  // half-word or word access to the TIM2/TIM3 registers -- what it does not
+  // permit is a byte access, and groov's subword list includes uint8_t. Since
+  // there is no bus here that allows 16 but forbids 8, this takes the
+  // stricter of the two. The cost is a legal half-word write becoming a word
+  // read-modify-write; the benefit is that a byte access cannot appear from a
+  // future change to which fields a write touches.
   using timx_t =
     groov::group<
-      Name, groov::mmio_bus<>,
+      Name, whole_register_bus<>,
       timx_cr1<BaseAddress>,
       timx_dier<BaseAddress>,
       timx_sr<BaseAddress>,
@@ -100,9 +112,12 @@ constexpr std::uintptr_t USART2_BASE = 0x4000'4400;
   // repetition counter and the break/dead-time register. Outputs stay
   // disconnected until bdtr.MOE is set.
   template <stdx::ct_string Name, std::uintptr_t BaseAddress>
+  // whole_register_bus, over-constrained for the same reason as timx_t above:
+  // RM0394 26.4 allows half-word or word access to the TIM1 registers but not
+  // byte, and word is the only guarantee available here.
   using timx_adv_t =
     groov::group<
-      Name, groov::mmio_bus<>,
+      Name, whole_register_bus<>,
       timx_cr1<BaseAddress>,
       timx_dier_adv<BaseAddress>,
       timx_sr_adv<BaseAddress>,
@@ -172,9 +187,11 @@ constexpr std::uintptr_t USART2_BASE = 0x4000'4400;
   constexpr std::uintptr_t I2C3_BASE = 0x4000'5c00;
 
   template <stdx::ct_string Name, std::uintptr_t BaseAddress>
+  // whole_register_bus: RM0394 38.9 -- "The registers are accessed by words
+  // (32-bit)".
   using i2cx_t =
     groov::group<
-      Name, groov::mmio_bus<>,
+      Name, whole_register_bus<>,
       i2c_cr1<BaseAddress>,
       i2c_cr2<BaseAddress>,
       i2c_oar1<BaseAddress>,
@@ -201,9 +218,16 @@ constexpr std::uintptr_t USART2_BASE = 0x4000'4400;
   // The 8-bit data register is used here: with DS <= 8 a 16-bit write to
   // DR would enqueue two frames. Swap in spi_dr_16 for wider frames.
   template <stdx::ct_string Name, std::uintptr_t BaseAddress>
+  // whole_register_bus, over-constrained. RM0394 41.6 allows half-word or word
+  // access to the SPI registers and forbids byte access -- with one exception,
+  // stated in the same paragraph: "SPI_DR in addition can be accessed by 8-bit
+  // access". That exception still holds here, because spi_dr_8 declares itself
+  // a std::uint8_t register and this bus accesses a register at its own
+  // declared width; an 8-bit DR access is required for DS <= 8, not a
+  // violation. Only the surrounding control registers are made stricter.
   using spix_t =
     groov::group<
-      Name, groov::mmio_bus<>,
+      Name, whole_register_bus<>,
       spi_cr1<BaseAddress>,
       spi_cr2<BaseAddress>,
       spi_sr<BaseAddress>,
@@ -224,7 +248,7 @@ constexpr std::uintptr_t USART2_BASE = 0x4000'4400;
   template <stdx::ct_string Name, std::uintptr_t BaseAddress>
   using dmax_t =
     groov::group<
-      Name, groov::mmio_bus<>,
+      Name, whole_register_bus<>,
       dma_isr<BaseAddress>,
       dma_ifcr<BaseAddress>,
       dma_ccr  <"ccr1"  , BaseAddress, 1>,
